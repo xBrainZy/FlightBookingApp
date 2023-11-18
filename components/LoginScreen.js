@@ -1,9 +1,14 @@
-import { StyleSheet, TextInput, View,TouchableOpacity,Text,KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, TextInput, View,TouchableOpacity,Text,KeyboardAvoidingView,Dimensions } from 'react-native'
 import React,{useEffect, useState} from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { auth, db, storage } from './config';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+const height = Dimensions.get('window').height
+const width = Dimensions.get('window').width
 
+const myFontSize = height*0.01 + width*0.05
 
 const LoginScreen = ({navigation}) => {
 
@@ -43,10 +48,10 @@ const handleRegister = async () => {
     }
     console.log(signedIn)
   return (
-
+    
     <KeyboardAvoidingView style={styles.container}>
             <View style={styles.inputContainer}>
-            <Text>
+            <Text style={styles.headingStyle}>
             { toogle? "Sign Up" : "Sign In"}
                 </Text>
                 <Text>
@@ -59,12 +64,14 @@ const handleRegister = async () => {
                     onChangeText={text =>  setEmail(text) }
                     style={styles.input}
                     autoCorrect={false}
+                    autoCapitalize='none'
                 />
                 <TextInput
                     placeholder='Password'
                     value={password}
                     onChangeText={text =>  setPassword(text)}
                     style={styles.input}
+                    autoCapitalize='none'
                     secureTextEntry
                 />
                 {toogle ?  <TextInput
@@ -72,6 +79,7 @@ const handleRegister = async () => {
                     value={confirmPassword}
                     onChangeText={text =>  setconfirmPassword(text)}
                     style={styles.input}
+                    autoCapitalize='none'
                     secureTextEntry
                 /> : null}
             </View>
@@ -81,20 +89,22 @@ const handleRegister = async () => {
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={[styles.button, styles.buttonOutLine]}
-                    onPress={ toogle ? handleLogin : handleRegister}
+                    onPress={ toogle ? handleRegister : handleLogin}
                 >
                     <Text style={styles.buttonText}>{ toogle? "Sign Up" : "Sign In"}</Text>
                 </TouchableOpacity>
                 {/*<TouchableOpacity style={[styles.button, styles.buttonOutLine]}
                     onPress={handleRegister}
   >*/}
-                <View>
+                <View style={{flexDirection: 'row'}}>
                     <Text>{ toogle? " Already Have an Account ? " : "Don't have an account ? "} </Text>
                     <Text style={[styles.buttonText, styles.buttonOutLineText]} onPress={() => setToogle(!toogle)}>{ toogle? "Sign In" : "Sign Up"}</Text>
                 </View>
                 
             </View>
         </KeyboardAvoidingView>
+
+    
 
     )
 }
@@ -105,8 +115,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
+        
         alignItems: 'center',
         backgroundColor: 'white'
+    },
+    headingStyle:{
+        fontSize: 35
     },
     input: {
         fontSize: 18,
@@ -114,35 +128,40 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 15,
         borderRadius: 10,
+        borderBottomColor: 'lightgrey',
+        borderBottomWidth: wp(0.05),
         marginTop: 5
     },
     inputContainer: {
-        width: '80%'
+        width: wp(80)
     },
     button: {
-        width: '100%',
+        width: wp(100),
         alignItems: 'center',
         backgroundColor: '#00D23B',
         borderRadius: 10,
-        padding: 15
+        padding: 15,
+        marginBottom: 35
 
     },
     buttonContainer: {
 
-        width: '60%',
+        width: wp(80),
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40
+        marginTop: 40,
+        
+        //backgroundColor: 'lightgreen'
 
     },
     buttonOutLine: {
-        width: '100%',
+        width: wp(80),
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: '#00D23B',
         borderRadius: 10,
         padding: 15,
         marginTop: 5,
-        borderColor: '#0782F9',
+        borderColor: '#00D23B',
         borderWidth: 2
     },
     buttonText: {
