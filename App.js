@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Assignment4 from './components/Assignment4';
 import LoginScreen from './components/LoginScreen';
+import Home from './components/Home';
 
 
 
@@ -17,7 +18,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name='Login' component={LoginScreen} 
         />
-        <Stack.Screen name='Assignment4' component={Assignment4} 
+        <Stack.Screen name='Home' component={Home} 
         />
 
       </Stack.Navigator>
