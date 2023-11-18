@@ -1,209 +1,188 @@
-import { StyleSheet, Text, View,Button, TextInput, TouchableOpacity, Dimensions, FlatList } from 'react-native'
+import { StyleSheet, Text, View,Button, TextInput, TouchableOpacity, Dimensions, FlatList, SafeAreaView} from 'react-native'
 import React,{useEffect, useState} from 'react'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import * as ImagePicker from 'expo-image-picker'
 import { Card ,Avatar,Badge } from '@rneui/themed';
-import { MaterialIcons, MaterialCommunityIcons} from 'react-native-vector-icons';
+import { MaterialIcons, MaterialCommunityIcons, FontAwesome} from 'react-native-vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 
 const windowHeight = Dimensions.get('window').height 
 const windowWidth = Dimensions.get('window').width
 
 const myFontSize = windowHeight*0.01 + windowWidth*0.05
 
+const Tab = createBottomTabNavigator();
+
+/*useEffect(() => 
+{
+    navigation.setOptions(
+        {
+            headerLeft: ()=> <MaterialIcons name='arrow-back-ios' 
+       onPress={()=> navigation.replace('Login')} size={30} color={'white'}/>
+      
+        })
+
+},[]
+)*/
 
 const Home = ({navigation, route}) => {
-    
-  const [authorName, setAuthorName] = useState('')
-  const [authorId, setAuthorId] = useState('')
-  const [info,setInfo] = useState([])
-  const [image, setImage] = useState(null);
-  const [users, setUsers] = useState([])
-  const [noteReceived, setNoteReceived] = useState([])
-  const noteArr = []
-  
-  /*const validateNoteId = () => {
-    if(authorId)
-  }*/
-
-  const addingNotes = () => {
-    let temp = {name:authorName ,id:authorId}
-    let findAuth = users.find((x)=> x.authorId == temp.id && x.authorName != temp.name)
-    let allowAddNote = users.find((x)=> x.authorName == temp.name && x.authorName == temp.name)
-
-    if (findAuth){
-        alert("An author with the same ID already exists!")
-        return
-
-    }
-
-
-    setInfo(temp)
-    navigation.navigate("Notes",temp)
-
-  }
-
- 
-
-  useEffect(() => { 
-    
-        if(route.params?.data){
-          const{noteData} = route.params;
-            let tempArr = [...users]
-            //let tempArrOfObj = {...noteData}
-            let tempNoteArr = [...noteData]
-            //let notesReceived = setStupidJSNote(note)
-            //let noteObj = setNoteReceived({ noteId: id ,note: stupidJSNote, authId: authId})
-
-            let obj = {
-                note: tempNoteArr,
-                authorName: authorName,
-                authorId: authorId,
-                avatar: image
-                
-            }
-
+    useEffect(()=>
+    {
+        navigation.setOptions(
+            {
+                headerLeft: ()=> <MaterialIcons name='arrow-back-ios' 
+       onPress={()=> navigation.replace('Login')} size={30} color={'white'}/>
+            })
             
-
-            if (tempArr.length >= 1){
-                let findExistingAuthId = tempArr.findIndex((x) => route.params.authId == x.id)
-
-                if(findExistingAuthId){
-                    tempArr[findExistingAuthId].note.push(obj)
-
-                }
-
-                else{
-                    tempArr.push(obj)
-                }
-            }
-
-            if(tempArr.length < 1){
-              
-
-                tempArr.push(obj)
-            }
-            
-            
-            setUsers([...tempArr])
-            navigation.setParams({note: null})
-        }
+         
+},[]
+)
     
-    
-
-    
-    },[route.params?.data?.note])
-
-  const pickImage = async () => {
-        
-    let result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.All,
-    });
-    if (!result.canceled) {
-        setImage(result.assets[0].uri);
-    }
-    };
-
     return (
-        <View style={{ flex: 1, justifyContent: 'space-evenly'}}>
-            <View style = {{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
-                <TextInput placeholder='Author Name' style = {styles.textInputStyle} onChangeText={text=> setAuthorName(text)} /*onFocus={() => setInfo({id:authorId, name:authorName})}*//>
-                
-                <TextInput placeholder='Author ID' style = {styles.textInputStyle} onChangeText={text=> setAuthorId(text)}/>
+        <SafeAreaView style={styles.container}>
+            <View style={{alignSelf: 'flex-start', margin: wp(6)}}> 
+                 <Text style={{color: 'white', fontSize: myFontSize * 1.3 }}> Discover </Text>
+                 <Text style={{color: 'white', fontSize: myFontSize * 1.3 }}> a new World </Text>
             </View>
-
-            <View style={{ alignItems: 'center'}}>
-                <TouchableOpacity onPress={pickImage} > 
-                    <Text style={styles.txtStyle}> Upload Photo </Text> 
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={addingNotes} > 
-                    <Text style={styles.txtStyle}> Add Notes </Text> 
-                </TouchableOpacity>
-
-            </View>
-            <View style={{flexDirection : 'row' , alignSelf : 'auto'}}>
-                <TouchableOpacity style={{backgroundColor: 'blue', borderRadius:12, width: windowHeight*0.09}}  onPress={()=> console.log(users)}>
-                    <Text style={{color:'white'}}> Show All</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={{borderWidth: 1, height: windowHeight*0.3, width: windowHeight*0.45, alignSelf: 'center'}}>
-               {/* <FlatList 
-                ItemSeparatorComponent={() => <Text></Text>}
-                data={users}
-                renderItem={({ item }) => (
-                <View style={{ flexDirection: 'row', justifyContent: "space-evenly"}}>
-                    {item.note.map((x) => {
-
-                        <View style={{flexDirection: 'row'}}>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.text}>
-                            {x.note}
-                        </Text>
-                    
-                    
-                            <MaterialCommunityIcons
-                            name='magnify-plus'
-                            size={20}/>
-
-                            <MaterialCommunityIcons
-                            name='delete-circle'
-                            size={20}/>
-
-                            <MaterialCommunityIcons
-                             name='update'
-                                size={20}/>
-                                
-                      </View>
-                    }
-
-                        
-                    
-                    )}
-                    
+            <View style={styles.semiContainer}>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.inputText}> From </Text>
+                    <View style={styles.miniInputContainer}>
+                        <MaterialCommunityIcons name= {'flight-land'} size={22} color= '#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}} />
+                        <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} />
                     </View>
-                  )}/>*/}
-            </View>
+                    <Text style={styles.inputText}> To </Text>
+                    <View style={styles.miniInputContainer}> 
+                        <MaterialCommunityIcons name={'flight-takeoff'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
+                        <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}}  />
+                    </View>
+                    <Text style={styles.inputText}> Departure Date </Text>
+                    <View style={styles.miniInputContainer}>
+                        <MaterialCommunityIcons name={'calendar-month'}  size={22} color= '#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
+                        <TextInput placeholder='Enter Date' style = {{width: wp(40)}} />
+                    </View>
+                    <Text style={styles.inputText}> Travelers </Text>
+                    <View style={styles.miniInputContainer}> 
+                        <MaterialCommunityIcons name={'access-point'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
+                        <TextInput placeholder='Enter no. of Travelers' style = {{width: wp(40)}} />
+                    </View>
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText}> Search Flights </Text>
+                    </TouchableOpacity>
                 
-            <View>
-            <Card>
-                <Card.Title>Author's Note</Card.Title>
-                <Card.Divider />
-                <FlatList 
-                ItemSeparatorComponent={() => <Text></Text>}
-                data={users}
-                renderItem={({ item }) => (
-                    <View style={{
-                        flexDirection: 'row', justifyContent: "space-between"}} key={item.id}>
-                            <Avatar rounded source={{ uri: item.image }} size='medium' />
-                                <Text style={{ alignSelf: 'center' }}>{item.authorName}</Text>
-                                <Text style={{ alignSelf: 'center' }}>{item.authorId}</Text>
-
-                        </View>
-                )
-                
-                }/>
-            </Card>
-            </View>
-           
+                    
+                </View>
+                {/*<MyTabs/>*/}
+            </View>  
             
-        </View>
+        </SafeAreaView>
         )
   
 }
 
+
+{/*function MyTabs() {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarActiveTintColor: '#00D23B',
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="Home" color='#00D23B' size={20} />
+          ),
+        }}
+      />
+      {/*<Tab.Screen
+        name="Notifications"
+        component={Notifications}
+        options={{
+          tabBarLabel: 'Updates',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="bell" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
+        }}
+    />*/}
+    {/*</Tab.Navigator>
+  );
+} */}
+
 export default Home
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        //justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#00D23B'
+    },
 
-    textInputStyle : {
-        borderWidth : 1,
-        width: windowWidth*0.3,
-        height: windowHeight*0.05
+    semiContainer :{
+        backgroundColor: 'white',
+        alignItems: 'center',
+        width: wp(100),
+        height: hp(70),
+        borderTopRightRadius: hp(4) ,
+        borderTopLeftRadius: hp(4)
+    },
+
+    inputContainer:{
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        
+        width: wp(90),
+        flex: 1,
+
+    }, 
+
+    miniInputContainer: {
+        flexDirection: 'row',
+        backgroundColor: 'lightgrey',
+        width: wp(75),
+        height: hp(7),
+        borderRadius: 13
         
     },
 
-    txtStyle: {
-        color: 'blue',
-        fontSize : myFontSize/1.7
+    inputText: {
+        alignSelf: 'flex-start',
+        fontSize: 12,
+        marginTop:hp(3),
+        marginLeft:wp(6)
+        
+    }, 
+
+    button: {
+        width: wp(75),
+        alignItems: 'center',
+        backgroundColor: '#00D23B',
+        borderRadius: 10,
+        padding: 15,
+        marginBottom: hp(10),
+        marginTop: hp(4)
+
     },
+    buttonText: {
+        fontWeight: '700',
+        color: 'white',
+        fontSize: 16
+    }
 
 })
