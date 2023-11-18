@@ -9,17 +9,24 @@ const LoginScreen = ({navigation}) => {
 
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [confirmPassword,setconfirmPassword] = useState()
+    const [toogle, setToogle] = useState(false)
     const [signedIn, setSignedIn] = useState(false)
 
 useEffect(()=> setSignedIn(false),[])
 const handleRegister = () => {
-  createUserWithEmailAndPassword(auth, email, password)
-  .then(() => {console.log("registered")
-        setEmail('')
-        setPassword('')
-    })
-  .catch((error) => error.message.includes('invalid-email')?
-  alert('Invalid Email'):console.log(error.message))
+    setToogle(true)
+    if (password!= confirmPassword){
+        alert("Password Mismatch")
+        return;
+    }
+        createUserWithEmailAndPassword(auth, email, password, confirmPassword)
+        .then(() =>{ console.log("registered")
+        setEmail()
+        setPassword()
+        setconfirmPassword()
+        })
+        .catch((error) => console.log(error.message))
   }
 
   const handleLogin = () => {
@@ -39,6 +46,13 @@ const handleRegister = () => {
 
     <KeyboardAvoidingView style={styles.container}>
             <View style={styles.inputContainer}>
+            <Text>
+                    Sign In
+                </Text>
+                <Text>
+                    Sign Up
+                </Text>
+
                 <TextInput
                     placeholder='Email'
                     value={email}
@@ -53,6 +67,13 @@ const handleRegister = () => {
                     style={styles.input}
                     secureTextEntry
                 />
+                {toogle ?  <TextInput
+                    placeholder='Confirm Password'
+                    value={confirmPassword}
+                    onChangeText={text =>  setconfirmPassword(text)}
+                    style={styles.input}
+                    secureTextEntry
+                /> : null}
             </View>
             <View>
                 
@@ -64,11 +85,14 @@ const handleRegister = () => {
                 >
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.button, styles.buttonOutLine]}
+                {/*<TouchableOpacity style={[styles.button, styles.buttonOutLine]}
                     onPress={handleRegister}
-                >
+  >*/}
+                <View>
+                    <Text> Don't Have aN Account ? </Text>
                     <Text style={[styles.buttonText, styles.buttonOutLineText]}>Register</Text>
-                </TouchableOpacity>
+                </View>
+                
             </View>
         </KeyboardAvoidingView>
 
