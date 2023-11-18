@@ -14,8 +14,8 @@ const LoginScreen = ({navigation}) => {
     const [signedIn, setSignedIn] = useState(false)
 
 useEffect(()=> setSignedIn(false),[])
-const handleRegister = () => {
-    setToogle(true)
+const handleRegister = async () => {
+    
     if (password!= confirmPassword){
         alert("Password Mismatch")
         return;
@@ -29,14 +29,14 @@ const handleRegister = () => {
         .catch((error) => console.log(error.message))
   }
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     signInWithEmailAndPassword(auth, email, password)
     .then(() => {
     console.log('Logged in')
     setSignedIn(true)
     setEmail('')
     setPassword('')
-    navigation.replace('Assignment4')
+    navigation.replace('Home')
     })
     .catch((error) => {console.log(error.message);
     setSignedIn(false)})
@@ -47,10 +47,10 @@ const handleRegister = () => {
     <KeyboardAvoidingView style={styles.container}>
             <View style={styles.inputContainer}>
             <Text>
-                    Sign In
+            { toogle? "Sign Up" : "Sign In"}
                 </Text>
                 <Text>
-                    Sign Up
+                    Start Your Journey
                 </Text>
 
                 <TextInput
@@ -80,17 +80,17 @@ const handleRegister = () => {
             </View>
 
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button}
-                    onPress={handleLogin}
+                <TouchableOpacity style={[styles.button, styles.buttonOutLine]}
+                    onPress={ toogle ? handleLogin : handleRegister}
                 >
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonText}>{ toogle? "Sign Up" : "Sign In"}</Text>
                 </TouchableOpacity>
                 {/*<TouchableOpacity style={[styles.button, styles.buttonOutLine]}
                     onPress={handleRegister}
   >*/}
                 <View>
-                    <Text> Don't Have aN Account ? </Text>
-                    <Text style={[styles.buttonText, styles.buttonOutLineText]}>Register</Text>
+                    <Text>{ toogle? " Already Have an Account ? " : "Don't have an account ? "} </Text>
+                    <Text style={[styles.buttonText, styles.buttonOutLineText]} onPress={() => setToogle(!toogle)}>{ toogle? "Sign In" : "Sign Up"}</Text>
                 </View>
                 
             </View>
@@ -105,7 +105,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'white'
     },
     input: {
         fontSize: 18,
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         alignItems: 'center',
-        backgroundColor: '#0782F9',
+        backgroundColor: '#00D23B',
         borderRadius: 10,
         padding: 15
 
