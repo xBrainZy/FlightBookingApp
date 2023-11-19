@@ -30,7 +30,7 @@ component={Account}
 options={{
 tabBarLabel: 'Account',
 tabBarIcon: ({ color, size }) => (
-<MaterialCommunityIcons name="person" color={color} size={size} />
+<MaterialIcons name="person" color={color} size={size} />
 ),
 }}
 />
