@@ -20,7 +20,17 @@ export default function App() {
       <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name='Login' component={LoginScreen} options={{headerShown: false} }
         />
-        <Stack.Screen name='Home' component={MyTabs} 
+        <Stack.Screen name='Home' component={MyTabs} options={{headerStyle: {
+      backgroundColor: '#00D23B',
+      
+    }, 
+           
+          headerTitle: 'Search Flights',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {color: 'white'},
+          headerShadowVisible: false,
+         
+      }}
         />
 
       </Stack.Navigator>

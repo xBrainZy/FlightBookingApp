@@ -27,17 +27,7 @@ const Tab = createBottomTabNavigator();
 )*/
 
 const Home = ({navigation, route}) => {
-    useEffect(()=>
-    {
-        navigation.setOptions(
-            {
-                headerLeft: ()=> <MaterialIcons name='arrow-back-ios' 
-       onPress={()=> navigation.replace('Login')} size={30} color={'white'}/>
-            })
-            
-         
-},[]
-)
+    
     
     return (
         <SafeAreaView style={styles.container}>
@@ -49,12 +39,12 @@ const Home = ({navigation, route}) => {
                 <View style={styles.inputContainer}>
                     <Text style={styles.inputText}> From </Text>
                     <View style={styles.miniInputContainer}>
-                        <MaterialCommunityIcons name= {'flight-land'} size={22} color= '#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}} />
+                        <MaterialIcons name= {'flight-takeoff'} size={22} color= '#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}} />
                         <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} />
                     </View>
                     <Text style={styles.inputText}> To </Text>
                     <View style={styles.miniInputContainer}> 
-                        <MaterialCommunityIcons name={'flight-takeoff'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
+                        <MaterialIcons name={'flight-land'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
                         <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}}  />
                     </View>
                     <Text style={styles.inputText}> Departure Date </Text>
@@ -64,7 +54,7 @@ const Home = ({navigation, route}) => {
                     </View>
                     <Text style={styles.inputText}> Travelers </Text>
                     <View style={styles.miniInputContainer}> 
-                        <MaterialCommunityIcons name={'access-point'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
+                        <MaterialIcons name={'person'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
                         <TextInput placeholder='Enter no. of Travelers' style = {{width: wp(40)}} />
                     </View>
                     <TouchableOpacity style={styles.button}>
@@ -154,7 +144,7 @@ const styles = StyleSheet.create({
 
     miniInputContainer: {
         flexDirection: 'row',
-        backgroundColor: 'lightgrey',
+        backgroundColor: '#F5F6F6',
         width: wp(75),
         height: hp(7),
         borderRadius: 13

@@ -2,25 +2,37 @@ import 'react-native-gesture-handler';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome} from 'react-native-vector-icons';
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import HomePage from './Home';
 import Account from './Account';
 
 const Tab = createBottomTabNavigator();
 
-const MyTabs = () => {
+const MyTabs = ({navigation, route}) => {
+    useEffect(()=>
+    {
+        navigation.setOptions(
+            {
+                headerLeft: ()=> <MaterialIcons name='arrow-back-ios' 
+       onPress={()=> navigation.replace('Login')} size={30} color={'white'}/>
+            })
+            
+         
+},[]
+)
 return (
 <Tab.Navigator screenOptions={{
 tabBarActiveTintColor: '#00D23B',
+//tabBarStyle : {display: 'none'}
+headerShown: false
 }}
 >
 <Tab.Screen
 name="Home"
 component={HomePage}
 options={{
-tabBarLabel: 'Home',
 tabBarIcon: ({ color, size }) => (
-<MaterialCommunityIcons name="Home" color={color} size={size} />
+<MaterialCommunityIcons name="home" color={color} size={size} />
 ),
 }}
 />
