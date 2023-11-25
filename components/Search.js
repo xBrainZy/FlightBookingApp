@@ -16,7 +16,7 @@ const windowWidth = Dimensions.get('window').width
 const myFontSize = windowHeight*0.01 + windowWidth*0.05
 
 const Search = ({navigation, route}) => {
-    let { fromCity, toCity, date} = route.params
+    let { fromCity, toCity, date, numOfTravellers} = route.params
     useEffect(() => {
         navigation.setOptions(
           {
@@ -57,7 +57,7 @@ const Search = ({navigation, route}) => {
                 //let image = x.airline+'.png'
                 return(
                     
-                <TouchableOpacity style= {styles.miniContainer} key={i} onPress={()=> navigation.navigate('Pay Methods', {id: i+1})}>
+                <TouchableOpacity style= {styles.miniContainer} key={i} onPress={()=> navigation.navigate('Pay Methods', {id: i+1, city: x.from, numOfTravellers: numOfTravellers})}>
                     <View style={styles.CardView}>
                         <View>
                             <Text style={{fontSize: myFontSize * 0.7}}> {x.fromAirPort }</Text>

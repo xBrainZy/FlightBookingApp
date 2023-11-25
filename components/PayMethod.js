@@ -3,6 +3,8 @@ import { MaterialIcons, MaterialCommunityIcons, FontAwesome5, AntDesign} from 'r
 import React,{useEffect, useState} from 'react';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
+import { db } from './config'
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
@@ -11,14 +13,29 @@ const myFontSize = height*0.01 + width*0.05
 
 
 const PayMethod = ({navigation, route}) => {
-    let {id} = route.params
+    let {id, city, numOfTravellers} = route.params
+    let cityId = city+id
+    const [price, setprice] = useState()
     console.log(id)
+    console.log(numOfTravellers)
+    console.log(cityId)
 
-   /*  useEffect(() => {
-        readDoc(id)
+    useEffect(() => {
+        readOne(cityId)
        
     }, []);
- */
+ 
+
+    const readOne = async (id) => {
+    
+        const docRef = doc(db, 'SearchedFlights', cityId);
+        const docSnap = (await getDoc(docRef)).data()
+        
+        setprice(docSnap.price)
+        
+    
+        }
+    
   return (
     <SafeAreaProvider>
         <View style={{ height: hp(90), margin:hp(2)}}>
@@ -50,11 +67,11 @@ const PayMethod = ({navigation, route}) => {
             <AntDesign name={'down'} size={20} color='#00D23B'/>
 
         </View>
-        <Text style={{fontSize: myFontSize * 0.8 }}>$135</Text>
+        <Text style={{fontSize: myFontSize * 0.8 }}>$ {price} </Text>
         
         </View>
         <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Bank', {id: id})}> Proceed To Payment </Text>
+                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Bank', {id: cityId, numOfTravellers: numOfTravellers})}> Proceed To Payment </Text>
         </TouchableOpacity>
       </View>
         </View>

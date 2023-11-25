@@ -10,6 +10,7 @@ import MyTabs from './components/MyTabs';
 import Search from './components/Search';
 import PayMethod from './components/PayMethod';
 import Bank from './components/Bank';
+import PaySucess from './components/PaySucess';
 
 
 const Stack = createNativeStackNavigator();
@@ -41,6 +42,7 @@ export default function App() {
         />
         <Stack.Screen name='Pay Methods' component={PayMethod} options={{headerShown: false}}/>
         <Stack.Screen name='Bank' component={Bank} options={{headerShown: false}}/>
+        <Stack.Screen name='Sucess' component={PaySucess} options={{headerShown: false}}/>
 
       </Stack.Navigator>
     </NavigationContainer>

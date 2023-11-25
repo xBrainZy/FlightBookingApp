@@ -30,6 +30,7 @@ const Home = ({navigation, route}) => {
     const [fromCity, setfromCity] = useState()
     const [toCity, settoCity] = useState()
     const [dateOfFlight, setdateOfFlight] = useState()
+    const [numOfTravellers, setnumOfTravellers] = useState()
     
     return (
         <KeyboardAvoidingView style={styles.container}>
@@ -60,10 +61,10 @@ const Home = ({navigation, route}) => {
                     <Text style={styles.inputText}> Travelers </Text>
                     <View style={styles.miniInputContainer}> 
                         <MaterialIcons name={'person'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
-                        <TextInput placeholder='Enter no. of Travelers' style = {{width: wp(40)}} />
+                        <TextInput placeholder='Enter no. of Travelers' style = {{width: wp(40)}} onChangeText={(text)=> setnumOfTravellers(text)}/>
                     </View>
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Search', {from: fromCity, to: toCity, date: dateOfFlight})}> Search Flights </Text>
+                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Search', {from: fromCity, to: toCity, date: dateOfFlight, numOfTravellers: numOfTravellers})}> Search Flights </Text>
                     </TouchableOpacity>
                 
                     
