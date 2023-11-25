@@ -20,7 +20,7 @@ const PaySucess = ({navigation, route}) => {
         </View>
 
         <View style={{alignItems: 'center'}}>
-            <Text style={{color: 'white', fontSize: myFontSize * 0.7, margin: wp(3)}}>
+            <Text style={{color: 'white', fontSize: myFontSize * 0.9, margin: wp(3)}}>
                 Order Confirmed
             </Text>
             <Text style={{color: 'white', fontSize: myFontSize * 0.5}}>
