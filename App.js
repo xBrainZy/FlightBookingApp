@@ -33,6 +33,8 @@ export default function App() {
           headerTitleAlign: 'center',
           headerTitleStyle: {color: 'white'},
           headerShadowVisible: false,
+          headerLeft: ()=> <MaterialIcons name='arrow-back-ios' 
+          onPress={()=> navigation.replace('Login')} size={30} color={'white'}/>
          
       } }
         />
