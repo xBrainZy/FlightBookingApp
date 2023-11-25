@@ -57,7 +57,7 @@ const Search = ({navigation, route}) => {
                 //let image = x.airline+'.png'
                 return(
                     
-                <TouchableOpacity style= {styles.miniContainer} key={i}>
+                <TouchableOpacity style= {styles.miniContainer} key={i} onPress={()=> navigation.navigate('Pay Methods', {id: i+1})}>
                     <View style={styles.CardView}>
                         <View>
                             <Text style={{fontSize: myFontSize * 0.7}}> {x.fromAirPort }</Text>
