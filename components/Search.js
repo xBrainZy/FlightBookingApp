@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, ScrollView, Dimensions, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, SafeAreaView } from 'react-native'
 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
@@ -16,17 +16,29 @@ const windowWidth = Dimensions.get('window').width
 const myFontSize = windowHeight*0.01 + windowWidth*0.05
 
 const Search = ({navigation, route}) => {
+    let { fromCity, toCity, date} = route.params
+    useEffect(() => {
+        navigation.setOptions(
+          {
+            headerLeft: ()=> <MaterialIcons name='arrow-back-ios' 
+            onPress={()=> navigation.replace('Tabs')} size={30} color={'white'}/>})
+    }, [navigation]);
+
     useEffect(() => {
         const unsub = onSnapshot(
                   collection(db, "SearchedFlights"),
                       (snapshot) => {
                         const loadedData = snapshot.docs.map((doc) => ({
                             id: doc.id,
+                            from: fromCity,
+                            to: toCity,
+                            date: date,
                             ...doc.data(),
                           }));
                           setdata(loadedData);
                             }
                           );
+                          
                       
                   return () => unsub();
             
@@ -36,12 +48,16 @@ const Search = ({navigation, route}) => {
 
     const [data, setdata] = useState([])
   return (
-    <ScrollView>
+    <SafeAreaView>
+        <ScrollView>
         <View style={styles.container}>
+            {console.log(data)}
       
             {data.length > 0 ? data.map((x, i) => {
+                //let image = x.airline+'.png'
                 return(
-                <View style= {styles.miniContainer} key={i}>
+                    
+                <TouchableOpacity style= {styles.miniContainer} key={i}>
                     <View style={styles.CardView}>
                         <View>
                             <Text style={{fontSize: myFontSize * 0.7}}> {x.fromAirPort }</Text>
@@ -59,20 +75,34 @@ const Search = ({navigation, route}) => {
 
                     </View>
                     <View style={styles.CardView}> 
-                        <Text style={{fontSize: myFontSize * 0.65}}> {x.sourceTime} AM </Text>
-                        <Text style={{fontSize: myFontSize * 0.65}}> {x.destinationTime} PM </Text>
+                        <View>
+                            <Text style={{fontSize: myFontSize * 0.65}}> {x.sourceTime} AM </Text>
+                            <Text style={{fontSize: myFontSize * 0.4, color: 'grey'}}> {x.date}  </Text>
+                        </View>
+                        <View></View>
+                        <View>
+                            <Text style={{fontSize: myFontSize * 0.65, marginLeft: wp(7)}}> {x.destinationTime} AM </Text>
+                            <Text style={{fontSize: myFontSize * 0.4, color: 'grey'}}> {x.date}  </Text>
+                        </View>
+                        
                     </View>
                     <View style={{ marginTop: hp(2),borderStyle: 'dashed',borderWidth: 1, borderColor: 'lightgrey'}}></View>
                     <View style={styles.CardView}> 
-                        <Image style={{width: wp(4), height: hp(4)}} source={require('../assets/'+x.airline+'.png')}></Image>
+                        <View style={{flexDirection:'row'}}>
+                            <Image style={{width: wp(15), height: hp(15)}} source={require('../assets/Qatar Airways.png')}></Image> 
+                            <Text style={{fontSize: myFontSize * 0.5, color: 'grey'}}> Qatar Airways</Text>
+                        </View>
+                        {/*x.airline == 'Eithad Airways' ? <Image style={{width: wp(4), height: hp(4)}} source={require('../assets/Eitihad Airways.png')}></Image> : null*/}
+                        {/*x.airline == 'Euro Line' ? <Image style={{width: wp(4), height: hp(4)}} source={require('../assets/Euro Line.png')}></Image> : null*/}
                         <Text style={{fontSize: myFontSize * 0.65}}>  $ {x.price}  </Text>
                     </View>
-                </View>
+                </TouchableOpacity>
                 )
             }) : null}
       
         </View>
-    </ScrollView>
+        </ScrollView>
+    </SafeAreaView>
   )
 }
 

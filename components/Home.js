@@ -63,7 +63,7 @@ const Home = ({navigation, route}) => {
                         <TextInput placeholder='Enter no. of Travelers' style = {{width: wp(40)}} />
                     </View>
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Search')}> Search Flights </Text>
+                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Search', {from: fromCity, to: toCity, date: dateOfFlight})}> Search Flights </Text>
                     </TouchableOpacity>
                 
                     
