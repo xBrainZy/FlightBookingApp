@@ -27,7 +27,9 @@ const Tab = createBottomTabNavigator();
 )*/
 
 const Home = ({navigation, route}) => {
-    
+    const [fromCity, setfromCity] = useState()
+    const [toCity, settoCity] = useState()
+    const [dateOfFlight, setdateOfFlight] = useState()
     
     return (
         <SafeAreaView style={styles.container}>
@@ -40,17 +42,17 @@ const Home = ({navigation, route}) => {
                     <Text style={styles.inputText}> From </Text>
                     <View style={styles.miniInputContainer}>
                         <MaterialIcons name= {'flight-takeoff'} size={22} color= '#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}} />
-                        <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} />
+                        <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} onChangeText={(text)=> setfromCity(text)}/>
                     </View>
                     <Text style={styles.inputText}> To </Text>
                     <View style={styles.miniInputContainer}> 
                         <MaterialIcons name={'flight-land'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
-                        <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}}  />
+                        <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} onChangeText={(text)=> settoCity(text)} />
                     </View>
                     <Text style={styles.inputText}> Departure Date </Text>
                     <View style={styles.miniInputContainer}>
                         <MaterialCommunityIcons name={'calendar-month'}  size={22} color= '#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
-                        <TextInput placeholder='Enter Date' style = {{width: wp(40)}} />
+                        <TextInput placeholder='Enter Date' style = {{width: wp(40)}} onChangeText={(text)=> setdateOfFlight(text)}/>
                     </View>
                     <Text style={styles.inputText}> Travelers </Text>
                     <View style={styles.miniInputContainer}> 
@@ -58,7 +60,7 @@ const Home = ({navigation, route}) => {
                         <TextInput placeholder='Enter no. of Travelers' style = {{width: wp(40)}} />
                     </View>
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> Search Flights </Text>
+                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Search')}> Search Flights </Text>
                     </TouchableOpacity>
                 
                     
