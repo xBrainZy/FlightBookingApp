@@ -55,7 +55,7 @@ const handleRegister = async () => {
             { toogle? "Sign Up" : "Sign In"}
                 </Text>
                 <Text>
-                    Start Your Journey
+                    Start your journey with affordable price
                 </Text>
 
                 <TextInput
