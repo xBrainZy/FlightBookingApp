@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Button, TextInput, TouchableOpacity, Dimensions, FlatList, SafeAreaView} from 'react-native'
+import { StyleSheet, Text, View,Button, TextInput, TouchableOpacity, Dimensions, FlatList, SafeAreaView, KeyboardAvoidingView} from 'react-native'
 import React,{useEffect, useState} from 'react'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import * as ImagePicker from 'expo-image-picker'
@@ -32,7 +32,7 @@ const Home = ({navigation, route}) => {
     const [dateOfFlight, setdateOfFlight] = useState()
     
     return (
-        <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
           <View style={{alignSelf: 'center', margin: wp(2)}}>
               <Text style={{color: 'white', fontSize: myFontSize * 0.7, paddingTop: wp(15)}}> Search Flights </Text>
           </View>
@@ -71,7 +71,7 @@ const Home = ({navigation, route}) => {
                 {/*<MyTabs/>*/}
             </View>  
             
-        </SafeAreaView>
+        </KeyboardAvoidingView>
         )
   
 }
