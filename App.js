@@ -8,6 +8,7 @@ import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome} from 'react-native-vector-icons';
 import MyTabs from './components/MyTabs';
 import Search from './components/Search';
+import PayMethod from './components/PayMethod';
 
 
 const Stack = createNativeStackNavigator();
@@ -37,6 +38,7 @@ export default function App() {
          
       } }
         />
+        <Stack.Screen name='Pay Methods' component={PayMethod} options={{headerShown: false}}/>
 
       </Stack.Navigator>
     </NavigationContainer>
