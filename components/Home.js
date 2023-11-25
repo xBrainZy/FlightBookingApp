@@ -33,9 +33,12 @@ const Home = ({navigation, route}) => {
     
     return (
         <SafeAreaView style={styles.container}>
+          <View style={{alignSelf: 'center', margin: wp(2)}}>
+              <Text style={{color: 'white', fontSize: myFontSize * 0.7, paddingTop: wp(15)}}> Search Flights </Text>
+          </View>
             <View style={{alignSelf: 'flex-start', margin: wp(6)}}> 
                  <Text style={{color: 'white', fontSize: myFontSize * 1.3 }}> Discover </Text>
-                 <Text style={{color: 'white', fontSize: myFontSize * 1.3 }}> a new World </Text>
+                 <Text style={{color: 'white', fontSize: myFontSize * 1.3 }}> a New World </Text>
             </View>
             <View style={styles.semiContainer}>
                 <View style={styles.inputContainer}>
