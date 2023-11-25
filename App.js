@@ -7,6 +7,7 @@ import LoginScreen from './components/LoginScreen';
 import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome} from 'react-native-vector-icons';
 import MyTabs from './components/MyTabs';
+import Search from './components/Search';
 
 
 const Stack = createNativeStackNavigator();
@@ -20,7 +21,10 @@ export default function App() {
       <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name='Login' component={LoginScreen} options={{headerShown: false} }
         />
-        <Stack.Screen name='Home' component={MyTabs} options={{headerStyle: {
+        <Stack.Screen name='Home' component={MyTabs} options={{headerShown: false}}
+        />
+
+        <Stack.Screen name='Search' component={Search} options={{headerStyle: {
       backgroundColor: '#00D23B',
       
     }, 
@@ -30,7 +34,7 @@ export default function App() {
           headerTitleStyle: {color: 'white'},
           headerShadowVisible: false,
          
-      }}
+      } }
         />
 
       </Stack.Navigator>
