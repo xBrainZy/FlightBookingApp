@@ -9,6 +9,7 @@ import { MaterialIcons, MaterialCommunityIcons, FontAwesome} from 'react-native-
 import MyTabs from './components/MyTabs';
 import Search from './components/Search';
 import PayMethod from './components/PayMethod';
+import Bank from './components/Bank';
 
 
 const Stack = createNativeStackNavigator();
@@ -39,6 +40,7 @@ export default function App() {
       } }
         />
         <Stack.Screen name='Pay Methods' component={PayMethod} options={{headerShown: false}}/>
+        <Stack.Screen name='Bank' component={Bank} options={{headerShown: false}}/>
 
       </Stack.Navigator>
     </NavigationContainer>
