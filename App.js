@@ -11,6 +11,7 @@ import Search from './components/Search';
 import PayMethod from './components/PayMethod';
 import Bank from './components/Bank';
 import PaySucess from './components/PaySucess';
+import TransactionDetails from './components/TransactionDetails';
 
 
 const Stack = createNativeStackNavigator();
@@ -43,6 +44,7 @@ export default function App() {
         <Stack.Screen name='Pay Methods' component={PayMethod} options={{headerShown: false}}/>
         <Stack.Screen name='Bank' component={Bank} options={{headerShown: false}}/>
         <Stack.Screen name='Sucess' component={PaySucess} options={{headerShown: false}}/>
+        <Stack.Screen name='Details' component={TransactionDetails} options={{headerShown: false}}/>
 
       </Stack.Navigator>
     </NavigationContainer>
