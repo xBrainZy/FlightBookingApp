@@ -21,4 +21,29 @@ const TransactionDetails = ({navigation, route}) => {
 
 export default TransactionDetails
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+    container: {
+        flex: 1,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: '#00D23B',
+        padding: wp(15)
+    },
+
+    miniContainer: {
+        marginTop: wp(7),
+        backgroundColor: 'white',
+        width: wp(90),
+        height: hp(30),
+        borderRadius: hp(3)
+    },
+
+    CardView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: hp(2)
+
+
+    },
+})
