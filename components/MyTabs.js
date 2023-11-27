@@ -28,7 +28,8 @@ return (
 <Tab.Navigator screenOptions={{
 tabBarActiveTintColor: '#00D23B',
 //tabBarStyle : {display: 'none'}
-headerShown: false
+headerShown: false,
+tabBarHideOnKeyboard: true
 }}
 >
 <Tab.Screen
