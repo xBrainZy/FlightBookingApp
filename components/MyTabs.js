@@ -9,6 +9,10 @@ import Account from './Account';
 const Tab = createBottomTabNavigator();
 
 const MyTabs = ({navigation, route}) => {
+
+    let {user} = route.params
+
+    console.log(user)
     useEffect(()=>
     {
         navigation.setOptions(
