@@ -41,7 +41,7 @@ const handleRegister = async () => {
     setSignedIn(true)
     setEmail('')
     setPassword('')
-    navigation.replace('Tabs')
+    navigation.replace('Tabs', {user: email})
     })
     .catch((error) => {console.log(error.message);
     setSignedIn(false)})
