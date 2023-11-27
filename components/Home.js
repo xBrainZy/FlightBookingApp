@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Button, TextInput, TouchableOpacity, Dimensions, FlatList, SafeAreaView, KeyboardAvoidingView} from 'react-native'
+import { StyleSheet, Text, View,Button, TextInput, TouchableOpacity, Dimensions, FlatList, SafeAreaView, KeyboardAvoidingView, ScrollView} from 'react-native'
 import React,{useEffect, useState} from 'react'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import * as ImagePicker from 'expo-image-picker'
@@ -27,13 +27,15 @@ const Tab = createBottomTabNavigator();
 )*/
 
 const Home = ({navigation, route}) => {
+  
     const [fromCity, setfromCity] = useState()
     const [toCity, settoCity] = useState()
     const [dateOfFlight, setdateOfFlight] = useState()
     const [numOfTravellers, setnumOfTravellers] = useState()
     
     return (
-        <KeyboardAvoidingView style={styles.container}>
+        <ScrollView> 
+          <SafeAreaView style={styles.container}> 
           <View style={{alignSelf: 'center', margin: wp(2)}}>
               <Text style={{color: 'white', fontSize: myFontSize * 0.7, paddingTop: wp(15)}}> Search Flights </Text>
           </View>
@@ -72,7 +74,8 @@ const Home = ({navigation, route}) => {
                 {/*<MyTabs/>*/}
             </View>  
             
-        </KeyboardAvoidingView>
+        </SafeAreaView>
+        </ScrollView>
         )
   
 }
