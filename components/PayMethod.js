@@ -4,7 +4,7 @@ import React,{useEffect, useState} from 'react';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
-import { db } from './config'
+import { db } from './Config'
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
@@ -16,12 +16,14 @@ const PayMethod = ({navigation, route}) => {
     let {id, city, numOfTravellers} = route.params
     let cityId = city+id
     const [price, setprice] = useState()
+    const [user, setuser] = useState()
     console.log(id)
     console.log(numOfTravellers)
     console.log(cityId)
 
     useEffect(() => {
         readOne(cityId)
+        //findUserNameFromCollection()
        
     }, []);
  
@@ -32,6 +34,20 @@ const PayMethod = ({navigation, route}) => {
         const docSnap = (await getDoc(docRef)).data()
         
         setprice(docSnap.price)
+        
+    
+        }
+
+    const findUserNameFromCollection = async () => {
+    
+        const q = query(collection(db, "Users"), where("signedIn", "==", true));
+        const docs = await getDocs(q);
+        docs.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            });
+            
+            
         
     
         }
@@ -71,7 +87,7 @@ const PayMethod = ({navigation, route}) => {
         
         </View>
         <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Bank', {id: cityId, numOfTravellers: numOfTravellers})}> Proceed To Payment </Text>
+                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Bank', {id: cityId, numOfTravellers: numOfTravellers, price: price})}> Proceed To Payment </Text>
         </TouchableOpacity>
       </View>
         </View>
