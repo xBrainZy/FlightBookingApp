@@ -2,15 +2,17 @@ import { StyleSheet, TextInput, View,TouchableOpacity,Text,KeyboardAvoidingView,
 import React,{useEffect, useState} from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { auth, db, storage } from './config';
+import { auth, db, storage } from './Config';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
+
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
 
 const myFontSize = height*0.01 + width*0.05
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({navigation, route}) => {
 
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
@@ -18,7 +20,7 @@ const LoginScreen = ({navigation}) => {
     const [toogle, setToogle] = useState(false)
     const [signedIn, setSignedIn] = useState(false)
 
-useEffect(()=> setSignedIn(false),[])
+//useEffect(()=> setSignedIn(false),[])
 const handleRegister = async () => {
     
     if (password!= confirmPassword){
@@ -38,15 +40,33 @@ const handleRegister = async () => {
     signInWithEmailAndPassword(auth, email, password)
     .then(() => {
     console.log('Logged in')
-    setSignedIn(true)
+    //setSignedIn(true)
+    set()
     setEmail('')
+    
     setPassword('')
-    navigation.replace('Tabs', {user: email})
+    navigation.navigate('Drawer')
     })
-    .catch((error) => {console.log(error.message);
+    .catch((error) => {console.log(error.message)
     setSignedIn(false)})
     }
-    console.log(signedIn)
+    //console.log(signedIn)
+
+    const set = async () => {
+        //setSignedIn(false)
+        const docRef = doc(db, "Users", email)
+        await setDoc(docRef, {user: email, signedIn: true},{merge:true} )
+            .then(() => { console.log('data submitted')
+            
+             
+            //store()
+            //navigation.navigate('Sucess', {id: id, numOfTravellers: numOfTravellers})
+        })
+            .catch((error) => { console.log(error.message) })
+    
+      };
+
+
   return (
     
     <KeyboardAvoidingView style={styles.container}>
@@ -55,7 +75,7 @@ const handleRegister = async () => {
             { toogle? "Sign Up" : "Sign In"}
                 </Text>
                 <Text>
-                    Start your journey with affordable price
+                    Start Your Journey
                 </Text>
 
                 <TextInput
