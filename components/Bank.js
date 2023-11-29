@@ -4,7 +4,7 @@ import React,{useEffect, useState} from 'react';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
-import { db } from './config'
+import { db } from './Config'
 
 const windowHeight = Dimensions.get('window').height 
 const windowWidth = Dimensions.get('window').width
@@ -12,27 +12,31 @@ const windowWidth = Dimensions.get('window').width
 const myFontSize = windowHeight*0.01 + windowWidth*0.05
 
 const Bank = ({navigation, route}) => {
-    let {id, numOfTravellers} = route.params
+    let {id, numOfTravellers, price} = route.params
     console.log(id)
     console.log(numOfTravellers)
+    console.log(price)
+    
+     
 
 const [cardNum, setcardNum] = useState()
 const [cardName, setcardName] = useState()
 const [cardCSC, setcardCSC] = useState()
 const [obj, setObj] = useState()
-const [price, setprice] = useState()
+const [user, setUser] = useState()
 
 useEffect(() => {
     readOne(id)
+    findUserNameFromCollection()
    
-}, []);
+}, []); 
 
 const readOne = async (id) => {
     
     const docRef = doc(db, 'SearchedFlights', id);
     const docSnap = (await getDoc(docRef)).data()
     
-    setprice(docSnap.price)
+    //setprice(docSnap.price)
     
     setObj({airline: docSnap.airline, destinationTime: docSnap.destinationTime, flightClass: docSnap.flightClass,
         from: docSnap.from, to : docSnap.to, fromAirPort: docSnap.fromAirPort, sourceTime: docSnap.sourceTime,
@@ -44,8 +48,31 @@ const readOne = async (id) => {
 
     }
 
+    const findUserNameFromCollection = async () => {
+        
+        const q = query(collection(db, "Users"), where("signedIn", "==", true));
+        const docs = await getDocs(q);
+        docs.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data().user);
+            username = doc.data().user
+            setUser(username)
+            
+            });
+            
+           
+        
+    
+        }
+
+    
+
+    
+    let userBookId = id + " " + user
+    
+    console.log(userBookId)
     const set = async () => {
-        const docRef = doc(db, "Bookings", id)
+        const docRef = doc(db, "Bookings", userBookId)
         await setDoc(docRef, {...obj},{merge:true} )
             .then(() => { console.log('data submitted')
              
@@ -62,6 +89,7 @@ const readOne = async (id) => {
         <View style={{alignSelf: 'flex-start', marginLeft: wp(7), marginBottom:hp(27)}}>
         <MaterialIcons name='arrow-back-ios' 
             onPress={()=> navigation.goBack()} size={30} color={'black'}/>
+  
         </View>
             <View style={styles.inputContainer}>
             <Text style={styles.headingStyle}>
