@@ -12,6 +12,7 @@ import PayMethod from './components/PayMethod';
 import Bank from './components/Bank';
 import PaySucess from './components/PaySucess';
 import TransactionDetails from './components/TransactionDetails';
+import Drawer from './components/Drawer';
 
 
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'>
+        <Stack.Screen name='Drawer' component={Drawer} options={{headerShown: false} }/>
         <Stack.Screen name='Login' component={LoginScreen} options={{headerShown: false} }
         />
         <Stack.Screen name='Tabs' component={MyTabs} options={{headerShown: false}}
@@ -50,5 +52,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-
