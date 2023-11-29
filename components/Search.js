@@ -81,7 +81,7 @@ const Search = ({navigation, route}) => {
                         </View>
                         <View></View>
                         <View>
-                            <Text style={{fontSize: myFontSize * 0.65, marginLeft: wp(7)}}> {x.destinationTime} AM </Text>
+                            <Text style={{fontSize: myFontSize * 0.65, marginLeft: wp(7)}}> {x.destinationTime} PM </Text>
                             <Text style={{fontSize: myFontSize * 0.4, color: 'grey'}}> {x.date}  </Text>
                         </View>
                         

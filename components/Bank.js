@@ -4,7 +4,7 @@ import React,{useEffect, useState} from 'react';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
-import { db } from './Config'
+import { db } from './config'
 
 const windowHeight = Dimensions.get('window').height 
 const windowWidth = Dimensions.get('window').width
@@ -77,7 +77,7 @@ const readOne = async (id) => {
             .then(() => { console.log('data submitted')
              
             //store()
-            navigation.navigate('Sucess', {id: id, numOfTravellers: numOfTravellers})
+            navigation.navigate('Sucess', {id: userBookId, numOfTravellers: numOfTravellers})
         })
             .catch((error) => { console.log(error.message) })
     

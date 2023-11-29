@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Account = () => {
+const Account = ({navigation, route}) => {
   return (
     <View>
-      <Text>Account</Text>
+      <Text> Account </Text>
     </View>
   )
 }

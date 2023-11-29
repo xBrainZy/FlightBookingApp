@@ -2,7 +2,7 @@ import { StyleSheet, TextInput, View,TouchableOpacity,Text,KeyboardAvoidingView,
 import React,{useEffect, useState} from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { auth, db, storage } from './Config';
+import { auth, db, storage } from './config';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
 

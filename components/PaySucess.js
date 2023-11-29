@@ -12,7 +12,7 @@ const myFontSize = windowHeight*0.01 + windowWidth*0.05
 
 const PaySucess = ({navigation, route}) => {
     let {id, numOfTravellers} = route.params
-
+    console.log(id)
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.ball}>

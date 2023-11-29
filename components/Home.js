@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { Card ,Avatar,Badge } from '@rneui/themed';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome} from 'react-native-vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import DateTimePickerModal from '@react-native-community/datetimepicker';
 
 
 const windowHeight = Dimensions.get('window').height 
@@ -32,7 +33,28 @@ const Home = ({navigation, route}) => {
     const [toCity, settoCity] = useState()
     const [dateOfFlight, setdateOfFlight] = useState()
     const [numOfTravellers, setnumOfTravellers] = useState()
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     
+    
+  
+    const hideDatePicker = () => {
+      setDatePickerVisibility(false);
+      console.log(isDatePickerVisible)
+    };
+  
+    const handleConfirm = (date) => {
+      console.log("A date has been picked: ", date);
+      
+      cleanUpDate(date)
+      hideDatePicker();
+    };
+
+    const cleanUpDate = (date) => {
+      let currentDate = {...date}
+
+      console.log(currentDate.nativeEvent.timestamp.toTimeString())
+    }
+
     return (
         <ScrollView> 
           <SafeAreaView style={styles.container}> 
@@ -49,21 +71,31 @@ const Home = ({navigation, route}) => {
                     <View style={styles.miniInputContainer}>
                         <MaterialIcons name= {'flight-takeoff'} size={22} color= '#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}} />
                         <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} onChangeText={(text)=> setfromCity(text)}/>
+
                     </View>
                     <Text style={styles.inputText}> To </Text>
                     <View style={styles.miniInputContainer}> 
                         <MaterialIcons name={'flight-land'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
                         <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} onChangeText={(text)=> settoCity(text)} />
+
                     </View>
                     <Text style={styles.inputText}> Departure Date </Text>
-                    <View style={styles.miniInputContainer}>
+                    <TouchableOpacity style={styles.miniInputContainer} onPress={() => setDatePickerVisibility(true)}>
                         <MaterialCommunityIcons name={'calendar-month'}  size={22} color= '#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
-                        <TextInput placeholder='Enter Date' style = {{width: wp(40)}} onChangeText={(text)=> setdateOfFlight(text)}/>
-                    </View>
+                        <TextInput placeholder='Enter Date' style = {{width: wp(40)}} editable={false} value={dateOfFlight}/>
+                        { isDatePickerVisible ?  <DateTimePickerModal
+                          //isVisible={isDatePickerVisible}
+                          mode="date"
+                          value={new Date()}
+                          onChange={handleConfirm}
+                          
+                        />: null}
+                    </TouchableOpacity>
                     <Text style={styles.inputText}> Travelers </Text>
                     <View style={styles.miniInputContainer}> 
                         <MaterialIcons name={'person'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
                         <TextInput placeholder='Enter no. of Travelers' style = {{width: wp(40)}} onChangeText={(text)=> setnumOfTravellers(text)}/>
+
                     </View>
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => navigation.navigate('Search', {from: fromCity, to: toCity, date: dateOfFlight, numOfTravellers: numOfTravellers})}> Search Flights </Text>

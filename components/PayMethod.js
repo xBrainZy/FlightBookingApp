@@ -4,7 +4,7 @@ import React,{useEffect, useState} from 'react';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
-import { db } from './Config'
+import { db } from './config'
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
@@ -33,7 +33,7 @@ const PayMethod = ({navigation, route}) => {
         const docRef = doc(db, 'SearchedFlights', cityId);
         const docSnap = (await getDoc(docRef)).data()
         
-        setprice(docSnap.price)
+        setprice(docSnap.price * numOfTravellers)
         
     
         }

@@ -20,6 +20,8 @@ const MyTabs = ({navigation, route}) => {
                 headerLeft: ()=> <MaterialIcons name='arrow-back-ios' 
        onPress={()=> navigation.replace('Login')} size={30} color={'white'}/>
             })
+        
+    navigation.navigate('Home',{user: user})
             
          
 },[]
