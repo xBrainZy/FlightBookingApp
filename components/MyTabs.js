@@ -26,6 +26,7 @@ const MyTabs = ({navigation, route}) => {
          
 },[]
 )
+
 return (
 <Tab.Navigator screenOptions={{
 tabBarActiveTintColor: '#00D23B',

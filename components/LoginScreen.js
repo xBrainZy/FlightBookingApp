@@ -45,7 +45,7 @@ const handleRegister = async () => {
     setEmail('')
     
     setPassword('')
-    navigation.navigate('Drawer')
+    navigation.navigate('Tabs', {user: email})
     })
     .catch((error) => {console.log(error.message)
     setSignedIn(false)})
