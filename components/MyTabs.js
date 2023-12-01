@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React,{useEffect, useState} from 'react'
 import HomePage from './Home';
 import Account from './Account';
+import Bookings from './Bookings';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +13,7 @@ const MyTabs = ({navigation, route}) => {
 
     let {user} = route.params
 
-    console.log(user)
+    //console.log(user)
     useEffect(()=>
     {
         navigation.setOptions(
@@ -41,6 +42,16 @@ component={HomePage}
 options={{
 tabBarIcon: ({ color, size }) => (
 <MaterialCommunityIcons name="home" color={color} size={size} />
+),
+}}
+/>
+<Tab.Screen
+name="Bookings"
+component={Bookings}
+options={{
+tabBarLabel: 'Bookings',
+tabBarIcon: ({ color, size }) => (
+<MaterialCommunityIcons name="road-variant" color={color} size={size} />
 ),
 }}
 />
