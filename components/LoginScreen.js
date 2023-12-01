@@ -29,6 +29,7 @@ const handleRegister = async () => {
     }
         createUserWithEmailAndPassword(auth, email, password, confirmPassword)
         .then(() =>{ console.log("registered")
+        set()
         setEmail()
         setPassword()
         setconfirmPassword()
@@ -41,7 +42,7 @@ const handleRegister = async () => {
     .then(() => {
     console.log('Logged in')
     //setSignedIn(true)
-    set()
+    update()
     setEmail('')
     
     setPassword('')
@@ -65,6 +66,18 @@ const handleRegister = async () => {
             .catch((error) => { console.log(error.message) })
     
       };
+
+    const update = async () => {
+        const docRef = doc(db, "Users", email)
+        await updateDoc(docRef, {signedIn: true},{merge:true} )
+            .then(() => { console.log('signed in true')
+            
+             
+            //store()
+            //navigation.navigate('Sucess', {id: id, numOfTravellers: numOfTravellers})
+        })
+            .catch((error) => { console.log(error.message) })
+    }
 
 
   return (
