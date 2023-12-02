@@ -41,7 +41,7 @@ const readOne = async (id) => {
     
     setObj({airline: docSnap.airline, destinationTime: docSnap.destinationTime, flightClass: docSnap.flightClass,
         from: docSnap.from, to : docSnap.to, fromAirPort: docSnap.fromAirPort, sourceTime: docSnap.sourceTime,
-        toAirPort: docSnap.toAirPort, price: price * numOfTravellers})
+        toAirPort: docSnap.toAirPort, price: price * numOfTravellers,user: user})
 
     //console.log(obj)
     
@@ -73,9 +73,32 @@ const readOne = async (id) => {
     
     console.log(userBookId)
     const set = async () => {
+        
+
         const docRef = doc(db, "Bookings", userBookId)
         await setDoc(docRef, {...obj},{merge:true} )
-            .then(() => { console.log('data submitted')
+            .then(() => { 
+                if(cardNum == undefined && cardName == undefined && cardCSC == undefined){
+                    alert("Invalid bank credentials")
+                    return ;
+                }
+        
+                if(cardNum.length < 16 || cardNum.length > 16){
+                    alert("Invalid card number")
+                    return ;
+                }
+        
+                if(cardCSC.length < 3 || cardCSC.length > 3){
+                    alert("Invalid CSC")
+                    return ;
+                }
+        
+                if(cardName.length < 7){
+                    alert("Name must be atleast 7 characters")
+                    return ;
+                }
+                
+            console.log('data submitted')
              
             //store()
             navigation.navigate('Sucess', {id: userBookId, numOfTravellers: numOfTravellers, user: user})
@@ -83,6 +106,8 @@ const readOne = async (id) => {
             .catch((error) => { console.log(error.message) })
     
       };
+
+
 
   return (
     
