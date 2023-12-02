@@ -31,7 +31,7 @@ const PayMethod = ({navigation, route}) => {
 
     const readOne = async (id) => {
     
-        const docRef = doc(db, 'SearchedFlights', cityId);
+        const docRef = doc(db, 'SearchedFlights', id);
         const docSnap = (await getDoc(docRef)).data()
         
         setprice(docSnap.price * numOfTravellers)
