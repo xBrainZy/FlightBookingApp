@@ -28,7 +28,8 @@ const Tab = createBottomTabNavigator();
 )*/
 
 const Home = ({navigation, route}) => {
-  
+  let{user} = route.params
+  console.log(user)
     const [fromCity, setfromCity] = useState()
     const [toCity, settoCity] = useState()
     const [dateOfFlight, setdateOfFlight] = useState()
@@ -98,7 +99,7 @@ const Home = ({navigation, route}) => {
 
                     </View>
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Search', {from: fromCity, to: toCity, date: dateOfFlight, numOfTravellers: numOfTravellers})}> Search Flights </Text>
+                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Search', {from: fromCity, to: toCity, date: dateOfFlight, numOfTravellers: numOfTravellers, user: user})}> Search Flights </Text>
                     </TouchableOpacity>
                 
                     
