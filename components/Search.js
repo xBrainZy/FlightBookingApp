@@ -16,12 +16,13 @@ const windowWidth = Dimensions.get('window').width
 const myFontSize = windowHeight*0.01 + windowWidth*0.05
 
 const Search = ({navigation, route}) => {
-    let { fromCity, toCity, date, numOfTravellers} = route.params
+    let { fromCity, toCity, date, numOfTravellers, user} = route.params
+    console.log(user)
     useEffect(() => {
         navigation.setOptions(
           {
             headerLeft: ()=> <MaterialIcons name='arrow-back-ios' 
-            onPress={()=> navigation.replace('Tabs')} size={30} color={'white'}/>})
+            onPress={()=> navigation.navigate('Tabs',{user: user})} size={30} color={'white'}/>})
     }, [navigation]);
 
     useEffect(() => {
@@ -35,6 +36,7 @@ const Search = ({navigation, route}) => {
                             date: date,
                             ...doc.data(),
                           }));
+                          
                           setdata(loadedData);
                             }
                           );
@@ -47,17 +49,34 @@ const Search = ({navigation, route}) => {
     )
 
     const [data, setdata] = useState([])
+    const [flag, setFlag] = useState(false)
+
+    const checkFlightAlreadyBooked = async (id, index, from) => {
+        let bookId = id + " " + user
+
+        const docRef = doc(db, 'Bookings', bookId);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()) {
+            setFlag(false)
+            alert("Already reserved, Check your bookings")
+            
+            return;
+        }
+        else {
+            navigation.navigate('Pay Methods', {id: index+1, city: from, numOfTravellers: numOfTravellers, user: user})
+        }
+    }
   return (
     <SafeAreaView>
         <ScrollView>
         <View style={styles.container}>
-            {console.log(data)}
+            {/* {console.log(data)} */}
       
             {data.length > 0 ? data.map((x, i) => {
                 //let image = x.airline+'.png'
                 return(
                     
-                <TouchableOpacity style= {styles.miniContainer} key={i} onPress={()=> navigation.navigate('Pay Methods', {id: i+1, city: x.from, numOfTravellers: numOfTravellers})}>
+                <TouchableOpacity style= {styles.miniContainer} key={x.id}  onPress={()=> checkFlightAlreadyBooked(x.id, i, x.from)}>
                     <View style={styles.CardView}>
                         <View>
                             <Text style={{fontSize: myFontSize * 0.7}}> {x.fromAirPort }</Text>
@@ -89,8 +108,8 @@ const Search = ({navigation, route}) => {
                     <View style={{ marginTop: hp(2),borderStyle: 'dashed',borderWidth: 1, borderColor: 'lightgrey'}}></View>
                     <View style={styles.CardView}> 
                         <View style={{flexDirection:'row'}}>
-                            <Image style={{width: wp(15), height: hp(15)}} source={require('../assets/Qatar Airways.png')}></Image> 
-                            <Text style={{fontSize: myFontSize * 0.5, color: 'grey'}}> Qatar Airways</Text>
+                            {/*<Image style={{width: wp(15), height: hp(15)}} source={require('../assets/Qatar Airways.png')}></Image> */}
+                            <Text style={{fontSize: myFontSize * 0.5, color: 'grey'}}> {x.airline} </Text>
                         </View>
                         {/*x.airline == 'Eithad Airways' ? <Image style={{width: wp(4), height: hp(4)}} source={require('../assets/Eitihad Airways.png')}></Image> : null*/}
                         {/*x.airline == 'Euro Line' ? <Image style={{width: wp(4), height: hp(4)}} source={require('../assets/Euro Line.png')}></Image> : null*/}
