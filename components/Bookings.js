@@ -133,7 +133,15 @@ const Bookings = ({navigation, route}) => {
   return (
     
       <SafeAreaView style={{ height: hp(100),}}>
-        <View style={{backgroundColor: 'white', margin: wp(5), marginTop: wp(17), borderRadius: wp(6)
+        <View style={styles.upContainer}>
+        <Text style={{fontSize: myFontSize * 0.7, color: 'white', fontWeight: 'bold',alignSelf:'flex-start', margin: wp(6)}}>
+          My Bookings
+        </Text>
+
+        
+
+      </View>
+        <View style={{backgroundColor: 'white', margin: wp(5), marginTop: wp(1), borderRadius: wp(6)
         }}>
             {filteredData. length > 0 ? filteredData.map((x) => {
                 return(
@@ -172,6 +180,14 @@ const styles = StyleSheet.create({
         
 
 
-    }
+    },
+    upContainer: {
+      backgroundColor:'#00D23B',
+      height: hp(25),
+      borderBottomRightRadius: wp(15),
+      borderBottomLeftRadius: wp(15),
+      alignItems:'center',
+      justifyContent: 'center'
+    },
 
 })

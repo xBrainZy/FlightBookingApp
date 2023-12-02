@@ -54,7 +54,7 @@ const Account = ({navigation, route}) => {
   return (
     <SafeAreaView style={{height: hp(100), backgroundColor:'white'}}>
       <View style={styles.upContainer}>
-        <Text style={{fontSize: myFontSize * 0.7, color: 'white', fontWeight: 'bold',alignSelf:'flex-start', margin: wp(5)}}>
+        <Text style={{fontSize: myFontSize * 0.7, color: 'white', fontWeight: 'bold',alignSelf:'flex-start', margin: wp(6)}}>
           My Profile
         </Text>
 
@@ -105,7 +105,7 @@ export default Account
 const styles = StyleSheet.create({
 upContainer: {
   backgroundColor:'#00D23B',
-  height: hp(35),
+  height: hp(25),
   borderBottomRightRadius: wp(15),
   borderBottomLeftRadius: wp(15),
   alignItems:'center',

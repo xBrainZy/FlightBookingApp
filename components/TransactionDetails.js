@@ -34,11 +34,11 @@ const TransactionDetails = ({navigation, route}) => {
     
     setObj(docSnap)
     
-    console.log(obj)
+    //console.log(obj)
 
     }
   const [obj, setObj] = useState({})
-  
+  console.log(obj)
 
 
   return (
@@ -116,7 +116,7 @@ const TransactionDetails = ({navigation, route}) => {
             </View>
                         <View style={styles.buttonContainer}>
                 <TouchableOpacity style={[styles.button, styles.buttonOutLine]}
-                    
+                  onPress={()=> navigation.navigate('Bookings')}  
                 >
                     <Text style={styles.buttonText} > Enter </Text>
                 </TouchableOpacity>

@@ -16,7 +16,7 @@ const Bank = ({navigation, route}) => {
     console.log(id)
     console.log(numOfTravellers)
     console.log(price)
-    console.log(user)
+    console.log(user) 
     
      
 

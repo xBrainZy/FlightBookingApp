@@ -74,7 +74,7 @@ const Home = ({navigation, route}) => {
                         <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} onChangeText={(text)=> setfromCity(text)}/>
 
                     </View>
-                    <Text style={styles.inputText}> To </Text>
+                    {/* <Text style={styles.inputText}> To </Text>
                     <View style={styles.miniInputContainer}> 
                         <MaterialIcons name={'flight-land'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
                         <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} onChangeText={(text)=> settoCity(text)} />
@@ -91,21 +91,22 @@ const Home = ({navigation, route}) => {
                           onChange={handleConfirm}
                           
                         />: null}
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <Text style={styles.inputText}> Travelers </Text>
                     <View style={styles.miniInputContainer}> 
                         <MaterialIcons name={'person'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
                         <TextInput placeholder='Enter no. of Travelers' style = {{width: wp(40)}} onChangeText={(text)=> setnumOfTravellers(text)}/>
 
                     </View>
+                    
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => navigation.navigate('Search', {from: fromCity, to: toCity, date: dateOfFlight, numOfTravellers: numOfTravellers, user: user})}> Search Flights </Text>
                     </TouchableOpacity>
-                
                     
                 </View>
                 {/*<MyTabs/>*/}
-            </View>  
+            </View> 
+             
             
         </SafeAreaView>
         </ScrollView>
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
     inputText: {
         alignSelf: 'flex-start',
         fontSize: 12,
-        marginTop:hp(3),
+        marginTop:hp(12),
         marginLeft:wp(6)
         
     }, 
