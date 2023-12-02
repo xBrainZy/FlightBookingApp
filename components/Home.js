@@ -99,8 +99,8 @@ const Home = ({navigation, route}) => {
 
                     </View>
                     
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Search', {from: fromCity, to: toCity, date: dateOfFlight, numOfTravellers: numOfTravellers, user: user})}> Search Flights </Text>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Search', {from: fromCity, to: toCity, date: dateOfFlight, numOfTravellers: numOfTravellers, user: user})}>
+                        <Text style={styles.buttonText} > Search Flights </Text>
                     </TouchableOpacity>
                     
                 </View>
