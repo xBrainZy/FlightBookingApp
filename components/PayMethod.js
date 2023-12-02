@@ -13,13 +13,14 @@ const myFontSize = height*0.01 + width*0.05
 
 
 const PayMethod = ({navigation, route}) => {
-    let {id, city, numOfTravellers} = route.params
+    let {id, city, numOfTravellers,user} = route.params
     let cityId = city+id
     const [price, setprice] = useState()
-    const [user, setuser] = useState()
+    //const [user, setuser] = useState()
     console.log(id)
     console.log(numOfTravellers)
     console.log(cityId)
+    console.log(user)
 
     useEffect(() => {
         readOne(cityId)
@@ -87,7 +88,7 @@ const PayMethod = ({navigation, route}) => {
         
         </View>
         <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Bank', {id: cityId, numOfTravellers: numOfTravellers, price: price})}> Proceed To Payment </Text>
+                        <Text style={styles.buttonText} onPress={() => navigation.navigate('Bank', {id: cityId, numOfTravellers: numOfTravellers, price: price, user: user})}> Proceed To Payment </Text>
         </TouchableOpacity>
       </View>
         </View>
