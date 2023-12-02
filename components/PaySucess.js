@@ -28,9 +28,9 @@ const PaySucess = ({navigation, route}) => {
             </Text>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={[styles.button, styles.buttonOutLine]}
-                    
+                   onPress={()=> navigation.navigate('Details', {id: id, numOfTravellers: numOfTravellers})} 
                 >
-                    <Text style={styles.buttonText} onPress={()=> navigation.navigate('Details', {id: id, numOfTravellers: numOfTravellers})}> See Details </Text>
+                    <Text style={styles.buttonText}> See Details </Text>
                 </TouchableOpacity>
                
                
