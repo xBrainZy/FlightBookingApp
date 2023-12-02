@@ -27,6 +27,7 @@ const handleRegister = async () => {
         alert("Password Mismatch")
         return;
     }
+    
         createUserWithEmailAndPassword(auth, email, password, confirmPassword)
         .then(() =>{ console.log("registered")
         set()
@@ -34,7 +35,25 @@ const handleRegister = async () => {
         setPassword()
         setconfirmPassword()
         })
-        .catch((error) => console.log(error.message))
+        .catch((error) => {
+
+            if (error.message.includes("auth/admin-restricted-operation")){
+                alert("Invalid credentials")
+            }
+
+            if (error.message.includes("auth/invalid-email")){
+                alert("Invalid email")
+            }
+            if (error.message.includes("auth/weak-password")){
+                alert("Password should be at least 6 characters")
+            }
+            if (error.message.includes("auth/missing-password")){
+                alert("Password is missing")
+            }
+            
+            console.log(error.message)
+            
+    })
   }
 
   const handleLogin = async () => {
@@ -48,8 +67,23 @@ const handleRegister = async () => {
     setPassword('')
     navigation.navigate('Tabs', {user: email})
     })
-    .catch((error) => {console.log(error.message)
-    setSignedIn(false)})
+    .catch((error) => {
+    console.log(error.message)
+    setSignedIn(false)
+    if (error.message.includes("auth/missing-email")){
+        alert("Missing email")
+    }
+    if (error.message.includes("auth/invalid-email")){
+        alert("Invalid email")
+    }
+    if (error.message.includes("auth/invalid-login-credentials")){
+        alert("Invalid login credentials")
+    }
+    if (error.message.includes("auth/missing-password")){
+        alert("Password is missing")
+    }
+
+})
     }
     //console.log(signedIn)
 
