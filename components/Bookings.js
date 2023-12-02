@@ -18,8 +18,10 @@ const myFontSize = windowHeight*0.01 + windowWidth*0.05
 
 
 const Bookings = ({navigation, route}) => {
-    const [user, setUser] = useState()
-    const [x, setX] = useState(false)
+  let {user} = route.params
+  console.log(user)
+    //const [user, setUser] = useState()
+   // const [x, setX] = useState(false)
     const [initialRender,setInitialRender] = useState(true)
     const[filteredData, setFilteredData] = useState([])
     const[data, setData] = useState([])
@@ -36,9 +38,9 @@ const Bookings = ({navigation, route}) => {
               });
       } */
 
-  const userCollection = collection(db, 'Users')
+  //const userCollection = collection(db, 'Users')
 
-  const unsub2 = onSnapshot(userCollection, (snapshot) => {
+  /* const unsub2 = onSnapshot(userCollection, (snapshot) => {
     const userData = snapshot.docs.map((doc) => doc.data());
     console.log('USERDATA: ', userData);
     if (userData[0].signedIn == true){
@@ -50,7 +52,7 @@ const Bookings = ({navigation, route}) => {
         setUser(x.user)
       }
     })
-  })
+  }) */
 
   const collectionRef = collection(db, 'Bookings')
   
@@ -69,25 +71,25 @@ const Bookings = ({navigation, route}) => {
   //                     }\
 
     
-    setData(newData)
-    console.log(data)
+      setData(newData)
+      console.log(data)
 
 
-          const filterData = newData.filter((x) => x.user === user);
-          console.log(filterData)
-          setFilteredData(filterData);
-          //setFilteredData(filterData);
+      const filterData = newData.filter((x) => x.user === user);
+      console.log(filterData)
+      setFilteredData(filterData);
+      //setFilteredData(filterData);
 
           console.log('RENDER 1')
                }) 
   
-              if (initialRender){
+              /* if (initialRender){
                    console.log('RENDER 1')
                    setInitialRender(false)
                    //setInitialRender(!initialRender)
                    
                   
-               }
+               } */
 
                
           
@@ -96,12 +98,12 @@ const Bookings = ({navigation, route}) => {
                    
                     
                   unsubscribe();
-                  unsub2();
+                  //unsub2();
                  
                   //setInitialRender(!initialRender)
                 } 
       
-  }, [initialRender]  
+  }, []  
   )
     
     //setInitialRender(true)
