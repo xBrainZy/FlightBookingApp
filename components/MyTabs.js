@@ -39,15 +39,18 @@ tabBarHideOnKeyboard: true
 <Tab.Screen
 name="Home"
 component={HomePage}
+initialParams={{user: user}}
 options={{
 tabBarIcon: ({ color, size }) => (
 <MaterialCommunityIcons name="home" color={color} size={size} />
 ),
+
 }}
 />
 <Tab.Screen
 name="Bookings"
 component={Bookings}
+initialParams={{user: user}}
 options={{
 tabBarLabel: 'Bookings',
 tabBarIcon: ({ color, size }) => (
