@@ -12,10 +12,11 @@ const windowWidth = Dimensions.get('window').width
 const myFontSize = windowHeight*0.01 + windowWidth*0.05
 
 const Bank = ({navigation, route}) => {
-    let {id, numOfTravellers, price} = route.params
+    let {id, numOfTravellers, price, user} = route.params
     console.log(id)
     console.log(numOfTravellers)
     console.log(price)
+    console.log(user)
     
      
 
@@ -23,11 +24,11 @@ const [cardNum, setcardNum] = useState()
 const [cardName, setcardName] = useState()
 const [cardCSC, setcardCSC] = useState()
 const [obj, setObj] = useState()
-const [user, setUser] = useState()
+//const [user, setUser] = useState()
 
 useEffect(() => {
     readOne(id)
-    findUserNameFromCollection()
+   // findUserNameFromCollection()
    
 }, []); 
 
@@ -56,7 +57,7 @@ const readOne = async (id) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data().user);
             username = doc.data().user
-            setUser(username)
+            //setUser(username)
             
             });
             
@@ -77,7 +78,7 @@ const readOne = async (id) => {
             .then(() => { console.log('data submitted')
              
             //store()
-            navigation.navigate('Sucess', {id: userBookId, numOfTravellers: numOfTravellers})
+            navigation.navigate('Sucess', {id: userBookId, numOfTravellers: numOfTravellers, user: user})
         })
             .catch((error) => { console.log(error.message) })
     
