@@ -1,6 +1,7 @@
 import { StyleSheet, TextInput, View,TouchableOpacity,Text,KeyboardAvoidingView,Dimensions, SafeAreaView, Button} from 'react-native'
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome5, AntDesign} from 'react-native-vector-icons';
 import React,{useEffect, useState} from 'react';
+import { Rating } from '@rneui/base';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
@@ -57,6 +58,9 @@ const PayMethod = ({navigation, route}) => {
     <SafeAreaProvider>
         <View style={{ height: hp(90), margin:hp(2)}}>
             <Text></Text>
+            <Text></Text>
+            <Text></Text>
+            
         <MaterialIcons name='arrow-back-ios' 
             onPress={()=> navigation.goBack()} size={30} color={'black'}/>
       <Text style={{fontSize: myFontSize * 0.8 , marginTop: hp(4)}}>Digital payment method(s)</Text>
@@ -73,9 +77,13 @@ const PayMethod = ({navigation, route}) => {
             </Text>
         </View>
         
+        
         <Text style={{ fontWeight: 'bold',color: '#00D23B',fontSize: myFontSize * 0.6}}> ADD</Text> 
       </View>
-      <View style={[styles.CardView, {marginTop: hp(48)}]}>
+      <View style={{alignSelf: 'flex-end', margin: wp(3)}}>
+                            <Rating imageSize={40}/>
+                        </View>
+      <View style={[styles.CardView, {marginTop: hp(33)}]}>
         <View>
         <View style={{flexDirection: 'row', marginTop: hp(3.5)}}>
             <Text>
