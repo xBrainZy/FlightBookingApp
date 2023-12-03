@@ -9,6 +9,7 @@ import { MaterialIcons, MaterialCommunityIcons, FontAwesome5} from 'react-native
 
 import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
 
+
 import { db } from './config'
 
 const windowHeight = Dimensions.get('window').height 
