@@ -108,10 +108,10 @@ const TransactionDetails = ({navigation, route}) => {
             </View>
             <View style={styles.CardView}> 
                       <Text style={{fontSize: myFontSize * 0.4, color: 'grey'}}>
-                          Status
+                          Hotel?
                         </Text>
                         <Text style={{fontSize: myFontSize * 0.4, color: '#00D23B'}}>
-                          Success
+                          Trivago
                         </Text>  
             </View>
                         <View style={styles.buttonContainer}>
