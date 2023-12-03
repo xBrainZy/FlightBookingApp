@@ -61,6 +61,7 @@ tabBarIcon: ({ color, size }) => (
 <Tab.Screen
 name="Account"
 component={Account}
+initialParams={{user: user}}
 options={{
 tabBarLabel: 'Account',
 tabBarIcon: ({ color, size }) => (
