@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList, ScrollView, Dimensi
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import React, {useEffect, useState} from 'react'
-
+import { Rating } from '@rneui/themed';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome5} from 'react-native-vector-icons';
 
 import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
@@ -103,6 +103,8 @@ const Search = ({navigation, route}) => {
                             <Text style={{fontSize: myFontSize * 0.65, marginLeft: wp(7)}}> {x.destinationTime} PM </Text>
                             <Text style={{fontSize: myFontSize * 0.4, color: 'grey'}}> {x.date}  </Text>
                         </View>
+
+                        
                         
                     </View>
                     <View style={{ marginTop: hp(2),borderStyle: 'dashed',borderWidth: 1, borderColor: 'lightgrey'}}></View>
