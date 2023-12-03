@@ -108,9 +108,11 @@ const Bookings = ({navigation, route}) => {
     
     //setInitialRender(true)
 
-    const delDoc = async (id) =>{
-
-    }
+    const deleteUser = async (id) => {
+      const userDoc = doc(db, 'users', id)
+      await deleteDoc(userDoc)
+      }
+      
 
     
 
@@ -158,7 +160,7 @@ const Bookings = ({navigation, route}) => {
                             <Text style={{fontSize: myFontSize * 0.7}}> {x.toAirPort }</Text>
                             <Text style={{fontSize: myFontSize * 0.4, color: 'grey'}}> {x.to} </Text>
                         </View>
-                    <TouchableOpacity onPress={delDoc(x.id)}>
+                    <TouchableOpacity onPress={deleteUser(x.id)}>
                         <Text style={{fontSize: myFontSize * 0.7, color:'#00D23B'  }}> Cancel </Text>   
                     </TouchableOpacity>
                 </View>
