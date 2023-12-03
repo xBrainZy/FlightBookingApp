@@ -155,9 +155,9 @@ const readOne = async (id) => {
                 
             </View>
 
-            <View style={styles.buttonContainer} onPress={set}>
+            <View style={styles.buttonContainer}>
                 <TouchableOpacity style={[styles.button, styles.buttonOutLine]}
-                    
+                    onPress={set}
                 >
                     <Text style={styles.buttonText} > Pay </Text>
                 </TouchableOpacity>

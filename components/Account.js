@@ -7,6 +7,7 @@ import React, {useEffect, useState} from 'react'
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome5, AntDesign, Feather} from 'react-native-vector-icons';
 
 import { Avatar } from "@rneui/base";
+import { Overlay } from '@rneui/themed';
 
 import {doc, setDoc,getDocs, collection,deleteDoc, getDoc, updateDoc, arrayUnion, query, where, onSnapshot} from "firebase/firestore";
 
@@ -18,9 +19,16 @@ const windowWidth = Dimensions.get('window').width
 const myFontSize = windowHeight*0.01 + windowWidth*0.05
 
 const Account = ({navigation, route}) => {
-  const [user, setUser] = useState()
+  let {user} = route.params
+  console.log(user)
 
-  const findUserNameFromCollection = async () => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible); }
+  //const [user, setUser] = useState()
+
+  /* const findUserNameFromCollection = async () => {
         
     const q = query(collection(db, "Users"), where("signedIn", "==", true));
     const docs = await getDocs(q);
@@ -34,13 +42,13 @@ const Account = ({navigation, route}) => {
         
         
         });
-        }
+        } */
 
   const update = async () => {
-    findUserNameFromCollection()
-    console.log(user)
+    //findUserNameFromCollection()
+    //console.log(user)
     
-    /* const docRef = doc(db, "Users", user)
+    const docRef = doc(db, "Users", user)
         await updateDoc(docRef, {signedIn: false},{merge:true} )
             .then(() => { console.log('signed in false')
             
@@ -48,19 +56,45 @@ const Account = ({navigation, route}) => {
             //store()
             navigation.navigate('Login')
         })
-            .catch((error) => { console.log(error.message) }) */
+            .catch((error) => { console.log(error.message) }) 
   }
   
   return (
     <SafeAreaView style={{height: hp(100), backgroundColor:'white'}}>
       <View style={styles.upContainer}>
-        <Text style={{fontSize: myFontSize * 0.7, color: 'white', fontWeight: 'bold',alignSelf:'flex-start', margin: wp(6)}}>
+        
+      
+        <MaterialIcons name ={'filter-list'} size={wp(7)} color='white' onPress={toggleModal}/>
+
+        <Text style={{fontSize: myFontSize * 0.7, color: 'white', fontWeight: 'bold'}}>
           My Profile
         </Text>
-
+        
         
 
       </View>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isModalVisible}
+        presentationStyle="overFullScreen"
+        from="left"
+        onRequestClose={() => {
+          // Handle modal close event
+          toggleModal();
+        }}
+      >
+        <TouchableOpacity style={styles.modalContainer} onPressOut={toggleModal}>
+          {/* Your overlay content goes here */}
+          
+          <View style={styles.overlayContent}>
+          <TouchableOpacity style={styles.overlayItem}>
+              <Text style={styles.overlayItemText}>Item 1</Text>
+            </TouchableOpacity>
+        </View>
+        
+        </TouchableOpacity>
+      </Modal>
       <View>
       <TouchableOpacity style={styles.SomeView} onPress={() => navigation.navigate("Bookings")}>
         <View style={{flexDirection: 'row'}}>
@@ -104,12 +138,14 @@ export default Account
 
 const styles = StyleSheet.create({
 upContainer: {
+  flexDirection: 'row',
   backgroundColor:'#00D23B',
   height: hp(25),
   borderBottomRightRadius: wp(15),
   borderBottomLeftRadius: wp(15),
   alignItems:'center',
-  justifyContent: 'center'
+  justifyContent: 'space-between',
+  padding: wp(10)
 },
 CardView: {
   flexDirection: 'row',
@@ -132,5 +168,30 @@ SomeView: {
   
 
 
-}
+},
+modalContainer: {
+  flex: 1,
+  //justifyContent: 'flex-end',
+  alignItems: 'flex-start',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+},
+overlayContent: {
+  backgroundColor: 'white',
+  width: wp(55),
+  height: hp(100),
+  padding: 20,
+  
+  //borderTopLeftRadius: 20,
+  //borderTopRightRadius: 20,
+},overlayItem: {
+  backgroundColor: 'lightblue', // Adjust the color to match your design
+  padding: 10,
+  marginVertical: 5,
+  borderRadius: 5,
+},
+overlayItemText: {
+  fontSize: 16,
+  color: 'blue',
+},
+
 })

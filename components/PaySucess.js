@@ -23,7 +23,7 @@ const PaySucess = ({navigation, route}) => {
             <Text style={{color: 'white', fontSize: myFontSize * 0.9, margin: wp(3)}}>
                 Order Confirmed
             </Text>
-            <Text style={{color: 'white', fontSize: myFontSize * 0.5}}>
+            <Text style={{color: 'white', fontSize: myFontSize * 0.5, margin: wp(3)}}>
             Thank you for your order. You will receive email confirmation shortly.
             </Text>
             <View style={styles.buttonContainer}>
