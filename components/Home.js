@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { Card ,Avatar,Badge } from '@rneui/themed';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome} from 'react-native-vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import DateTimePickerModal from '@react-native-community/datetimepicker';
+import { Dropdown } from 'react-native-element-dropdown'
 
 
 const windowHeight = Dimensions.get('window').height 
@@ -35,25 +35,42 @@ const Home = ({navigation, route}) => {
     const [dateOfFlight, setdateOfFlight] = useState()
     const [numOfTravellers, setnumOfTravellers] = useState()
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [selectedFromCity, setSelectedFromCity] = useState(null);
+    
     
     
   
-    const hideDatePicker = () => {
-      setDatePickerVisibility(false);
-      console.log(isDatePickerVisible)
+    const placeholderCity = {
+      label: 'Select City, Country',
+      value: null,
     };
   
-    const handleConfirm = (date) => {
-      console.log("A date has been picked: ", date);
+    const optionsCity = [
+      { label: 'Select City, Country', value: null },
+      { label: 'New York City, USA', value: 'New York' }
+     
       
-      cleanUpDate(date)
-      hideDatePicker();
-    };
+    ];
 
-    const cleanUpDate = (date) => {
-      let currentDate = {...date}
+    const validate = () => {
 
-      console.log(currentDate.nativeEvent.timestamp.toTimeString())
+      if(selectedFromCity == null){
+        alert("City is not selected ! ")
+        return;
+      }
+
+      if(numOfTravellers > 5){
+        alert("Limit of 5 people !")
+        return;
+      }
+
+      if(numOfTravellers <= 0){
+        alert("Invalid")
+        return;
+      }
+
+      navigation.navigate('Search', {from: selectedFromCity,  numOfTravellers: numOfTravellers, user: user})
+      
     }
 
     return (
@@ -71,35 +88,34 @@ const Home = ({navigation, route}) => {
                     <Text style={styles.inputText}> From </Text>
                     <View style={styles.miniInputContainer}>
                         <MaterialIcons name= {'flight-takeoff'} size={22} color= '#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}} />
-                        <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} onChangeText={(text)=> setfromCity(text)}/>
+                        <Dropdown
+                        labelField="label"
+                        valueField="value"
+                        style={styles.dropdown}
+                        placeholderStyle={{fontSize: myFontSize* 0.5}}
+                        placeholder={placeholderCity.label}
+                        data={optionsCity}
+                       
+                        onChange={item => 
+                          setSelectedFromCity(item.value)
+                  
+                          }
+                        value={selectedFromCity}
+                        />
 
-                    </View>
-                    {/* <Text style={styles.inputText}> To </Text>
-                    <View style={styles.miniInputContainer}> 
-                        <MaterialIcons name={'flight-land'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
-                        <TextInput placeholder='Enter City, Country' style = {{width: wp(40)}} onChangeText={(text)=> settoCity(text)} />
 
-                    </View>
-                    <Text style={styles.inputText}> Departure Date </Text>
-                    <TouchableOpacity style={styles.miniInputContainer} onPress={() => setDatePickerVisibility(true)}>
-                        <MaterialCommunityIcons name={'calendar-month'}  size={22} color= '#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
-                        <TextInput placeholder='Enter Date' style = {{width: wp(40)}} editable={false} value={dateOfFlight}/>
-                        { isDatePickerVisible ?  <DateTimePickerModal
-                          //isVisible={isDatePickerVisible}
-                          mode="date"
-                          value={new Date()}
-                          onChange={handleConfirm}
-                          
-                        />: null}
-                    </TouchableOpacity> */}
-                    <Text style={styles.inputText}> Travelers </Text>
-                    <View style={styles.miniInputContainer}> 
-                        <MaterialIcons name={'person'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
-                        <TextInput placeholder='Enter no. of Travelers' style = {{width: wp(40)}} onChangeText={(text)=> setnumOfTravellers(text)}/>
 
                     </View>
                     
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Search', {from: fromCity, to: toCity, date: dateOfFlight, numOfTravellers: numOfTravellers, user: user})}>
+                    
+                    <Text style={styles.inputText}> Travelers </Text>
+                    <View style={styles.miniInputContainer}> 
+                        <MaterialIcons name={'person'}  size={22} color='#00D23B' style={{width: wp(10), marginLeft: wp(2), marginTop: hp(2)}}  />
+                        <TextInput placeholder='Enter no. of Travelers' style = {{width: wp(40)}} onChangeText={(text)=> setnumOfTravellers(text)} keyboardType="numeric"/>
+
+                    </View>
+                    
+                    <TouchableOpacity style={styles.button} onPress={() => validate()}>
                         <Text style={styles.buttonText} > Search Flights </Text>
                     </TouchableOpacity>
                     
@@ -201,6 +217,14 @@ const styles = StyleSheet.create({
         marginLeft:wp(6)
         
     }, 
+    dropdown: {
+      height: hp(7),
+      width: wp(60),
+      borderColor: 'gray',
+      //borderWidth: 0.5,
+      //borderRadius: 8,
+      //paddingHorizontal: 8,
+    },
 
     button: {
         width: wp(75),
