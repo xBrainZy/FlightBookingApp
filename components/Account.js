@@ -107,16 +107,7 @@ const Account = ({navigation, route}) => {
         <MaterialIcons name={'arrow-forward-ios'} size={wp(5)} color= {'grey'} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.SomeView}>
-        <View style={{flexDirection: 'row'}}>
-        <Feather name ={'settings'} size={wp(7)} color='#00D23B' />
-        <Text style={{fontSize: myFontSize * 0.7, marginLeft: wp(5)}}>
-          Settings
-        </Text>
-
-        </View>
-        <MaterialIcons name={'arrow-forward-ios'} size={wp(5)} color= {'grey'} />
-        </TouchableOpacity>
+        
 
         <TouchableOpacity style={styles.SomeView} onPress={update}>
         <View style={{flexDirection: 'row'}}>
