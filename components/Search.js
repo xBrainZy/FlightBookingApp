@@ -49,7 +49,8 @@ const Search = ({navigation, route}) => {
     )
 
     const [data, setdata] = useState([])
-    const [flag, setFlag] = useState(false)
+    
+    
 
     const checkFlightAlreadyBooked = async (id, index, from) => {
         let bookId = id + " " + user
