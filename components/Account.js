@@ -88,8 +88,8 @@ const Account = ({navigation, route}) => {
           {/* Your overlay content goes here */}
           
           <View style={styles.overlayContent}>
-          <TouchableOpacity style={styles.overlayItem}>
-              <Text style={styles.overlayItemText}>Item 1</Text>
+          <TouchableOpacity style={styles.overlayItem} onPress={update}>
+              <Text style={styles.overlayItemText}>Log out</Text>
             </TouchableOpacity>
         </View>
         
