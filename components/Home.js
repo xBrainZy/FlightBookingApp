@@ -69,6 +69,11 @@ const Home = ({navigation, route}) => {
         return;
       }
 
+      if(numOfTravellers == null){
+        alert("You forgot to add no. of persons")
+        return;
+      }
+
       navigation.navigate('Search', {from: selectedFromCity,  numOfTravellers: numOfTravellers, user: user})
       
     }

@@ -132,6 +132,7 @@ const readOne = async (id) => {
                     style={styles.input}
                     autoCorrect={false}
                     autoCapitalize='none'
+                    keyboardType="numeric"
                 />
                 <TextInput
                     placeholder='Enter Your Card Name'
@@ -140,6 +141,7 @@ const readOne = async (id) => {
                     style={styles.input}
                     autoCapitalize='none'
                     
+                    
                 />
                 <TextInput
                     placeholder='Enter Your Card CSC'
@@ -147,6 +149,7 @@ const readOne = async (id) => {
                     onChangeText={text =>  setcardCSC(text)}
                     style={styles.input}
                     autoCapitalize='none'
+                    keyboardType="numeric"
                     
                 />
                 

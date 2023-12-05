@@ -58,7 +58,7 @@ const Search = ({navigation, route}) => {
         const docRef = doc(db, 'Bookings', bookId);
         const docSnap = await getDoc(docRef);
         if(docSnap.exists()) {
-            setFlag(false)
+            //setFlag(false)
             alert("Already reserved, Check your bookings")
             
             return;
