@@ -73,30 +73,28 @@ const readOne = async (id) => {
     
     console.log(userBookId)
     const set = async () => {
+
+        
+        if(cardNum.length < 16 || cardNum.length > 16){
+            alert("Invalid card number")
+            return ;
+        }
+
+        if(cardCSC.length < 3 || cardCSC.length > 3){
+            alert("Invalid CSC")
+            return ;
+        }
+
+        if(cardName.length < 7){
+            alert("Name must be atleast 7 characters")
+            return ;
+        }
         
 
         const docRef = doc(db, "Bookings", userBookId)
         await setDoc(docRef, {...obj},{merge:true} )
             .then(() => { 
-                if(cardNum == undefined && cardName == undefined && cardCSC == undefined){
-                    alert("Invalid bank credentials")
-                    return ;
-                }
-        
-                if(cardNum.length < 16 || cardNum.length > 16){
-                    alert("Invalid card number")
-                    return ;
-                }
-        
-                if(cardCSC.length < 3 || cardCSC.length > 3){
-                    alert("Invalid CSC")
-                    return ;
-                }
-        
-                if(cardName.length < 7){
-                    alert("Name must be atleast 7 characters")
-                    return ;
-                }
+                
                 
             console.log('data submitted')
              
