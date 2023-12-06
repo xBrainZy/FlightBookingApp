@@ -20,9 +20,9 @@ const Bank = ({navigation, route}) => {
     
      
 
-const [cardNum, setcardNum] = useState()
-const [cardName, setcardName] = useState()
-const [cardCSC, setcardCSC] = useState()
+const [cardNum, setcardNum] = useState('')
+const [cardName, setcardName] = useState('')
+const [cardCSC, setcardCSC] = useState('')
 const [obj, setObj] = useState()
 //const [user, setUser] = useState()
 
@@ -73,7 +73,10 @@ const readOne = async (id) => {
     
     console.log(userBookId)
     const set = async () => {
-
+        if(cardNum== ''  || cardName== ''  || cardName== ''){
+            alert("Invalid card credentials")
+            return ;
+        }
         
         if(cardNum.length < 16 || cardNum.length > 16){
             alert("Invalid card number")

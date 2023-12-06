@@ -68,7 +68,7 @@ const PaySucess = ({navigation, route}) => {
                 Order Confirmed
             </Text>
             <Text style={{color: 'white', fontSize: myFontSize * 0.5, margin: wp(3)}}>
-            Thank you for your order. You will receive email confirmation shortly.
+            Thank you for your order. You may check for the details of your flight !
             </Text>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={[styles.button, styles.buttonOutLine]}
