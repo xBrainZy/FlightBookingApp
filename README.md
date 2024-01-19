@@ -13,7 +13,7 @@ Before you begin, make sure you have the following installed on your machine:
 - **Expo CLI**
 - **Expo Go**: To run the app on your phone (It is available on App Store and Play Store)
 
-#To install expo CLI: 
+##To install expo CLI: 
 
 ```bash
 npm install -g expo-cli
@@ -39,9 +39,9 @@ expo start
 ```
 5. Run the App on Emulator or Device:
 
-#For Emulator on MacOS:
+##For Emulator on MacOS:
 - Press i for iOS emulator or a for Android emulator in the Expo DevTools.
-#For Physical Device:
+##For Physical Device:
 - After you started the expo dev server you will find a QR code.
 - Download the Expo Go app on your iOS or Android device.
 - Scan the QR code from the Expo DevTools using the Expo Go app.
